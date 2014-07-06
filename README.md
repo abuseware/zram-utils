@@ -10,7 +10,7 @@ This script provides "ramdisk" drives with permament storage dump on shutdown.
 
 On start:
 
-  * Load file stored in /opt/zdisk/zram[0-9] into zram drive
+  * Load file stored in /var/lib/zdisk/zram[0-9] into zram drive
   * Mount it at /mnt/zdisk/zram[0-9]
 
 On shutdown:

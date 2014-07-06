@@ -7,7 +7,7 @@ fi
 
 device="/dev/$2"
 config="/sys/block/$2"
-image="/opt/zdisk/$2"
+image="/var/lib/zdisk/$2"
 mount="/mnt/zdisk/$2"
 
 if [ ! -b $device ]; then
