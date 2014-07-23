@@ -41,6 +41,7 @@ case $1 in
 
         size=$(wc -c $image)
         
+        echo -n lz4 > $config/comp_algorithm
         echo -n $size > $config/disksize
         dd bs=4M if=$image of=$device
         mount $device $mount
