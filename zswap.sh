@@ -22,10 +22,13 @@ case $1 in
         
         echo "Starting zRAM Swap $1"
 
-        size=$(awk '($1 == "MemTotal:"){print $2*1024/2}' /proc/meminfo)
-        
-        echo -n lz4 > $config/comp_algorithm
-        echo -n $size > $config/disksize
+        if [ ! -f $config/comp_algorithm ]; then
+          echo "Warning: cannot use LZ4 compression, defaulting to LZO (slower!)"
+        else
+          echo -n lz4 > $config/comp_algorithm
+        fi
+
+        awk '($1 == "MemTotal:"){print $2*1024/2}' /proc/meminfo > $config/disksize        
         mkswap $device
         swapon -p 32767 $device
         ;;

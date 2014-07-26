@@ -39,10 +39,13 @@ case $1 in
         
         echo "Starting zRAM Disk $1"
 
-        size=$(wc -c $image)
+        if [ ! -f $config/comp_algorithm ]; then
+          echo "Warning: cannot use LZ4 compression, defaulting to LZO (slower!)"
+        else
+          echo -n lz4 > $config/comp_algorithm
+        fi
         
-        echo -n lz4 > $config/comp_algorithm
-        echo -n $size > $config/disksize
+        wc -c $image > $config/disksize
         dd bs=4M if=$image of=$device
         mount $device $mount
         ;;
